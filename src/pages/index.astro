@@ -1,11 +1,112 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { client } from '../utils/sanityClient';
+import type { Transmision } from '../types/sanity';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const query = `*[_type == "transmision"]{_id, marca, modelo, precio, condicion, foto}`;
+const transmisiones: Transmision[] = await client.fetch(query);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Catálogo de Transmisiones - Transmisiones Automáticas SV">
+ <main class="container">
+   <section class="hero">
+     <h1 class="hero-title">
+       <span>El Corazón de tu Vehículo,</span>
+       <span>Con la Confianza que Mereces.</span>
+     </h1>
+     <p class="hero-subtitle">
+       Descubre nuestra amplia selección de transmisiones automáticas, con garantía y el respaldo de expertos en El Salvador.
+     </p>
+   </section>
+
+   <div class="catalogo-grid">
+     {transmisiones.map((transmision) => (
+       <Card transmision={transmision} />
+     ))}
+   </div>
+
+   <div class="call-to-action">
+     <p>¿No encuentras lo que buscas? ¡Contáctanos hoy mismo para una asesoría personalizada!</p>
+     <a href="/contacto" class="btn btn-primario">Contactar a un Experto</a>
+   </div>
+ </main>
 </Layout>
+
+<style>
+ .container {
+   max-width: 1200px;
+   margin: 2rem auto;
+   padding: 2rem;
+ }
+
+ /* --- Hero Section --- */
+ .hero {
+   text-align: center;
+   margin-bottom: 4rem;
+ }
+ .hero-title {
+   font-size: 3rem;
+   color: var(--naranja-mecanico);
+   margin-bottom: 1rem;
+   overflow: hidden; /* Para la animación */
+ }
+ .hero-title span {
+   display: block;
+   transform: translateY(100%);
+   transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.1s;
+ }
+ .hero-title.loaded span {
+   transform: translateY(0);
+ }
+ .hero-subtitle {
+   font-size: 1.2rem;
+   color: var(--texto-secundario);
+   max-width: 700px;
+   margin: 0 auto;
+ }
+
+ /* --- Catálogo Grid --- */
+ .catalogo-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+   gap: 3rem;
+ }
+
+ /* --- Call to Action --- */
+ .call-to-action {
+   text-align: center;
+   margin-top: 4rem;
+   padding: 3rem 0;
+   background-color: var(--gris-oscuro);
+   border-radius: 12px;
+ }
+ .call-to-action p {
+   font-size: 1.2rem;
+   color: var(--texto-principal);
+   margin-bottom: 1.5rem;
+ }
+ .btn-primario {
+   background: var(--naranja-gradiente);
+   color: white;
+   text-decoration: none;
+   padding: 1rem 2rem;
+   border-radius: 10px;
+   font-weight: bold;
+   transition: transform 0.2s ease, box-shadow 0.2s ease;
+ }
+ .btn-primario:hover {
+   transform: scale(1.05);
+   box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+ }
+</style>
+
+<script>
+ // Añadimos una clase al hero title cuando la página carga para activar la animación
+ document.addEventListener('DOMContentLoaded', () => {
+   const heroTitle = document.querySelector('.hero-title');
+   if (heroTitle) {
+     heroTitle.classList.add('loaded');
+   }
+ });
+</script>

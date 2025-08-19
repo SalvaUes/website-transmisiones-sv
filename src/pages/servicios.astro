@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components'; // Importamos el componente de iconos
+---
+<Layout title="Servicios - Transmisiones Automáticas SV">
+  <main class="container">
+    <div class="header">
+        <h1>Nuestros Servicios</h1>
+        <p>Soluciones completas para tu transmisión automática.</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <Icon name="mdi:cogs" class="service-icon" />
+            <h3>Venta de Transmisiones</h3>
+            <p>El catálogo más completo de transmisiones nuevas, usadas y reconstruidas, todas con hasta 12 meses de garantía.</p>
+        </div>
+        <div class="service-card">
+            <Icon name="mdi:wrench" class="service-icon" />
+            <h3>Instalación Profesional</h3>
+            <p>Contamos con técnicos certificados para la instalación precisa de tu transmisión, garantizando un rendimiento óptimo.</p>
+        </div>
+        <div class="service-card">
+            <Icon name="mdi:magnify-scan" class="service-icon" />
+            <h3>Diagnóstico por Computadora</h3>
+            <p>Utilizamos tecnología de punta para diagnosticar con exactitud cualquier falla en tu sistema de transmisión.</p>
+        </div>
+         <div class="service-card">
+            <Icon name="mdi:oil" class="service-icon" />
+            <h3>Mantenimiento Preventivo</h3>
+            <p>Servicio de cambio de aceite y filtro, esencial para prolongar la vida útil de tu transmisión y evitar reparaciones costosas.</p>
+        </div>
+    </div>
+  </main>
+</Layout>
+<style>
+.container { max-width: 1100px; margin: 2rem auto; padding: 1rem; }
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 { font-size: 2.5rem; color: white; }
+.header p { font-size: 1.1rem; color: var(--texto-secundario); }
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.service-card {
+    background-color: var(--gris-oscuro);
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center; /* Centramos el contenido */
+}
+.service-icon {
+    font-size: 3rem; /* Tamaño del icono */
+    color: var(--naranja-mecanico);
+    margin-bottom: 1rem;
+}
+.service-card h3 { font-size: 1.5rem; color: var(--texto-principal); margin-top: 0; margin-bottom: 1rem; }
+.service-card p { line-height: 1.8; color: var(--texto-secundario); }
+</style>

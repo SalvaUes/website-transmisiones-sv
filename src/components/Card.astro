@@ -1,0 +1,120 @@
+---
+import { urlFor } from '../utils/sanity';
+import type { Transmision } from '../types/sanity';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+ transmision: Transmision;
+}
+
+const { transmision } = Astro.props;
+const { marca, modelo, precio, condicion, foto } = transmision;
+---
+
+<div class="card">
+ <div class="image-container">
+   {foto && (
+     <img src={urlFor(foto).width(600).height(450).quality(80).url()} alt={`Foto de ${marca} ${modelo}`} />
+   )}
+ </div>
+ <div class="card-content">
+   <h2 class="card-title">{marca} {modelo}</h2>
+   <p class="card-price">${precio} <span class="currency">USD</span></p>
+   <div class="card-tags">
+     <span class={`tag ${condicion.toLowerCase().replace(/\s+/g, '-')}`}>{condicion}</span>
+   </div>
+   <a href="/contacto" class="ver-mas-btn">
+     <Icon name="mdi:information-outline" size="1.2em" />
+     <span>Consultar Detalles</span>
+   </a>
+ </div>
+</div>
+
+<style>
+ .card {
+   background-color: var(--gris-oscuro);
+   color: var(--texto-principal);
+   border-radius: 12px;
+   overflow: hidden;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+   display: flex;
+   flex-direction: column;
+   height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+ }
+ .card:hover {
+   transform: translateY(-8px);
+   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+ }
+ .image-container {
+   position: relative;
+   overflow: hidden;
+   border-bottom: 1px solid var(--gris-claro);
+ }
+ .card img {
+   width: 100%;
+   height: auto;
+   display: block;
+   transition: transform 0.4s ease-out;
+ }
+ .card:hover .card img {
+   transform: scale(1.05);
+ }
+ .card-content {
+   padding: 1.5rem;
+   display: flex;
+   flex-direction: column;
+   flex-grow: 1; /* Permite que el contenido crezca y empuje el botón hacia abajo */
+ }
+ .card-title {
+   font-size: 1.5rem;
+   margin-bottom: 0.5rem;
+   color: var(--texto-principal);
+ }
+ .card-price {
+   font-size: 1.8rem;
+   font-weight: bold;
+   color: var(--naranja-mecanico);
+   margin-bottom: 1rem;
+ }
+ .card-price .currency {
+   font-size: 1rem;
+   color: var(--texto-secundario);
+   margin-left: 0.2rem;
+ }
+ .card-tags {
+   margin-bottom: 1rem;
+ }
+ .tag {
+   background-color: var(--gris-claro);
+   color: var(--texto-secundario);
+   padding: 0.3rem 0.7rem;
+   border-radius: 8px;
+   font-size: 0.9rem;
+   text-transform: capitalize;
+   margin-right: 0.5rem;
+ }
+ .tag.reconstruida { background-color: #64b5f6; color: white; }
+ .tag.nueva { background-color: #4caf50; color: white; }
+ .tag.usada { background-color: #ff9800; color: white; }
+
+ .ver-mas-btn {
+   background: none;
+   color: var(--naranja-mecanico);
+   border: 1px solid var(--naranja-mecanico);
+   border-radius: 8px;
+   padding: 0.7rem 1.2rem;
+   text-decoration: none;
+   font-weight: bold;
+   font-size: 1rem;
+   display: inline-flex;
+   align-items: center;
+   gap: 0.5rem;
+   transition: background-color 0.3s ease, color 0.3s ease;
+   margin-top: auto; /* Empuja el botón hacia la parte inferior */
+ }
+ .ver-mas-btn:hover {
+   background-color: var(--naranja-mecanico);
+   color: white;
+ }
+</style>
