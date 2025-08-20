@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Gracias - Transmisiones Automáticas SV">
+  <main class="container">
+    <div class="thank-you-card">
+      <h1>¡Gracias por tu mensaje!</h1>
+      <p>Hemos recibido tu consulta y nos pondremos en contacto contigo lo antes posible.</p>
+      <p>En breve te responderemos a través del correo electrónico que proporcionaste.</p>
+      
+      <div class="actions">
+        <a href="/" class="btn">Volver al inicio</a>
+        <a href="/contacto" class="btn btn-outline">Volver a contacto</a>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 4rem auto;
+      padding: 2rem;
+    }
+
+    .thank-you-card {
+      text-align: center;
+      background-color: var(--color-superficie);
+      padding: 3rem;
+      border-radius: 12px;
+      border: 1px solid var(--color-borde);
+    }
+
+    .thank-you-card h1 {
+      color: var(--color-acento);
+      margin-bottom: 1.5rem;
+    }
+
+    .thank-you-card p {
+      color: var(--color-texto-secundario);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .actions {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      background-color: var(--color-acento);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--color-acento);
+      border: 1px solid var(--color-acento);
+    }
+  </style>
+</Layout>
