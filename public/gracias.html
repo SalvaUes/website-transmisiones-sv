@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje Enviado - Transmisiones Automáticas SV</title>
+    <style>
+        :root {
+            --color-fondo: #0F172A;
+            --color-superficie: #1E293B;
+            --color-acento: #F97316;
+            --color-texto-principal: #E2E8F0;
+            --color-texto-secundario: #94A3B8;
+        }
+        body {
+            background-color: var(--color-fondo);
+            color: var(--color-texto-principal);
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .success-box {
+            background-color: var(--color-superficie);
+            padding: 3rem 4rem;
+            border-radius: 12px;
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: white;
+            margin: 1.5rem 0 0.5rem;
+        }
+        p {
+            font-size: 1.1rem;
+            color: var(--color-texto-secundario);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+        a.btn {
+            background-color: var(--color-acento);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: opacity 0.2s ease;
+        }
+        a.btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-box">
+        <h1>¡Gracias por tu mensaje!</h1>
+        <p>Hemos recibido tu consulta y nuestro equipo se pondrá en contacto contigo a la brevedad.</p>
+        <a href="/" class="btn">Volver al Catálogo</a>
+    </div>
+</body>
+</html>
