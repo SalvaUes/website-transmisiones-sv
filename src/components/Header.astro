@@ -19,10 +19,15 @@
 
 <style>
   header {
-    background-color: #1e2128;
-    border-bottom: 1px solid #333;
+    background-color: var(--color-fondo); /* Usamos la variable global */
+    border-bottom: 1px solid var(--color-borde);
     padding: 1.5rem 1rem;
-    color: white;
+    color: var(--color-texto-principal);
+    position: sticky; /* Hacemos que el header se quede fijo al hacer scroll */
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px); /* Efecto de desenfoque para el fondo */
+    background-color: rgba(15, 23, 42, 0.8); /* Fondo semi-transparente */
   }
   .container {
     max-width: 1200px;
@@ -35,7 +40,7 @@
   }
   .logo a {
     text-decoration: none;
-    color: white;
+    color: var(--color-texto-principal);
   }
   .logo h1 {
     margin: 0;
@@ -45,7 +50,7 @@
   .logo p {
     margin: 0;
     font-size: 0.9rem;
-    color: #ccc;
+    color: var(--color-texto-secundario);
   }
   nav {
     display: flex;
@@ -53,11 +58,30 @@
   }
   nav a {
     text-decoration: none;
-    color: #eee;
+    color: var(--color-texto-secundario);
     font-weight: 500;
     transition: color 0.2s ease;
+    position: relative; /* Para el efecto de subrayado */
+    padding-bottom: 0.5rem;
   }
   nav a:hover {
-    color: #F4743B; /* Naranja Mecánico */
+    color: var(--color-acento);
+  }
+  /* Efecto de subrayado al pasar el mouse */
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-acento);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
 </style>
