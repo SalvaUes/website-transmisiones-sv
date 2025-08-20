@@ -29,38 +29,45 @@ const { title } = Astro.props;
    </body>
 </html>
 <style is:global>
-   :root {
-       --naranja-mecanico: #F4743B;
-       --gris-oscuro: #1e2128;
-       --gris-claro: #333742;
-       --texto-principal: #e2e8f0;
-       --texto-secundario: #a0aec0;
-       --fondo: #13151a;
-       --naranja-gradiente: linear-gradient(45deg, #f4743b, #d86431);
-   }
-   html {
-   	font-family: 'Roboto', sans-serif;
-   	background: var(--fondo);
-       scroll-behavior: smooth;
-   }
-   h1, h2, h3, h4, h5, h6 {
-       font-family: 'Montserrat', sans-serif;
-   }
-   body {
-   	margin: 0;
-       color: var(--texto-principal);
-   }
-   .btn {
-       background: var(--naranja-gradiente);
-       color: white;
-       text-decoration: none;
-       padding: 0.8rem 1.5rem;
-       border-radius: 8px;
-       font-weight: bold;
-       transition: transform 0.2s ease, box-shadow 0.2s ease;
-   }
-   .btn:hover {
-       transform: scale(1.05);
-       box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-   }
+    :root {
+        /* --- Nueva Paleta de Colores Profesional --- */
+        --color-fondo: #0F172A; /* Azul Oscuro (Slate 900) */
+        --color-superficie: #1E293B; /* Azul Grisáceo (Slate 800) */
+        --color-borde: #334155; /* Borde sutil (Slate 700) */
+        
+        --color-acento: #F97316; /* Naranja Vibrante (Orange 500) */
+        --color-acento-hover: #EA580C; /* Naranja más oscuro para hover (Orange 600) */
+        
+        --color-texto-principal: #E2E8F0; /* Texto principal (Slate 200) */
+        --color-texto-secundario: #94A3B8; /* Texto secundario (Slate 400) */
+
+        --gradiente-acento: linear-gradient(45deg, var(--color-acento), var(--color-acento-hover));
+    }
+	html {
+		font-family: 'Roboto', sans-serif;
+		background: var(--color-fondo);
+        scroll-behavior: smooth;
+	}
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+    }
+	body {
+		margin: 0;
+        color: var(--color-texto-principal);
+	}
+    /* Estilo para un botón global */
+    .btn {
+        background: var(--gradiente-acento);
+        color: white;
+        text-decoration: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: inline-block;
+    }
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    }
 </style>
