@@ -27,6 +27,11 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <form name="contacto" method="POST" data-netlify="true" action="/gracias" class="contact-form">
+        <p style="display: none;">
+    <label>No llenar esto: <input name="bot-field" /></label>
+  </p>
+  <!-- Resto del formulario -->
+</form>
         <input type="hidden" name="form-name" value="contacto" />
         
         <h3>Envíanos un Mensaje</h3>
