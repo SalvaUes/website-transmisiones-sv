@@ -25,9 +25,8 @@ import Layout from '../layouts/Layout.astro';
           <a href="mailto:ventas@transmisionessv.com">ventas@transmisionessv.com</a>
         </p>
       </div>
-
-      <form name="contacto" method="POST" data-netlify="true" action="/gracias.astro" class="contact-form">
-        
+      
+      <form name="contacto" method="POST" data-netlify="true" class="contact-form">
         <input type="hidden" name="form-name" value="contacto" />
         
         <h3>Envíanos un Mensaje</h3>
@@ -55,7 +54,6 @@ import Layout from '../layouts/Layout.astro';
   .header { text-align: center; margin-bottom: 4rem; }
   .header h1 { font-size: 3rem; color: white; }
   .header p { font-size: 1.2rem; color: var(--color-texto-secundario); max-width: 600px; margin: 0.5rem auto 0; }
-  
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -65,17 +63,10 @@ import Layout from '../layouts/Layout.astro';
     border-radius: 12px;
     border: 1px solid var(--color-borde);
   }
-  
-  .contact-info h3, .contact-form h3 {
-    font-size: 1.8rem;
-    color: var(--color-acento);
-    margin-bottom: 1.5rem;
-  }
-  
+  .contact-info h3, .contact-form h3 { font-size: 1.8rem; color: var(--color-acento); margin-bottom: 1.5rem; }
   .contact-info p { line-height: 1.8; font-size: 1.1rem; }
   .contact-info a { color: var(--color-texto-principal); text-decoration: none; }
   .contact-info a:hover { color: var(--color-acento); }
-  
   .form-group { margin-bottom: 1.5rem; }
   .form-group label { display: block; margin-bottom: 0.5rem; color: var(--color-texto-secundario); }
   .form-group input, .form-group textarea {
@@ -93,8 +84,47 @@ import Layout from '../layouts/Layout.astro';
     border-color: var(--color-acento);
     box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
   }
-  
   @media (max-width: 768px) {
     .contact-grid { grid-template-columns: 1fr; padding: 2rem; }
   }
 </style>
+
+<script>
+  // Seleccionamos el formulario y le decimos a TypeScript que es un formulario HTML
+  const form = document.querySelector('form[name="contacto"]') as HTMLFormElement;
+
+  // Solo continuamos si el formulario realmente existe
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); // Evitamos que la página se recargue
+
+      const formData = new FormData(form);
+      
+      // Seleccionamos el botón y le decimos a TypeScript que es un botón
+      const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+      // Solo modificamos el botón si realmente existe
+      if (submitButton) {
+        submitButton.textContent = 'Enviando...';
+        submitButton.disabled = true;
+      }
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      })
+        .then(() => {
+          window.location.href = '/gracias.html';
+        })
+        .catch((error) => {
+          alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.');
+          // Reactivamos el botón solo si existe
+          if (submitButton) {
+            submitButton.textContent = 'Enviar Mensaje';
+            submitButton.disabled = false;
+          }
+        });
+    });
+  }
+</script>
