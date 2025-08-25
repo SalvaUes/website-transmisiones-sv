@@ -3,44 +3,59 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
-   title: string;
+	title: string;
+    description: string;
+    image?: string; // Imagen opcional para redes sociales
 }
-const { title } = Astro.props;
+
+const { 
+    title, 
+    description,
+    image = '/default-social-image.png' // Una imagen por defecto si no se especifica una
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es">
-   <head>
-   	<meta charset="UTF-8" />
-   	<meta name="description" content="Venta de transmisiones automáticas con hasta 12 meses de garantía en El Salvador." />
-   	<meta name="viewport" content="width=device-width" />
-   	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-       <link rel="preconnect" href="https://fonts.googleapis.com">
-       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+		<title>{title}</title>
+		<meta name="description" content={description} />
 
-   	<title>{title}</title>
-   </head>
-   <body>
-   	<Header />
-   	<slot />
-   	<Footer />
-   </body>
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={new URL(image, Astro.url)} />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:type" content="website" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={new URL(image, Astro.url)} />
+	</head>
+	<body>
+		<Header />
+		<slot />
+		<Footer />
+	</body>
 </html>
 <style is:global>
     :root {
-        /* --- Nueva Paleta de Colores Profesional --- */
-        --color-fondo: #0F172A; /* Azul Oscuro (Slate 900) */
-        --color-superficie: #1E293B; /* Azul Grisáceo (Slate 800) */
-        --color-borde: #334155; /* Borde sutil (Slate 700) */
-        
-        --color-acento: #F97316; /* Naranja Vibrante (Orange 500) */
-        --color-acento-hover: #EA580C; /* Naranja más oscuro para hover (Orange 600) */
-        
-        --color-texto-principal: #E2E8F0; /* Texto principal (Slate 200) */
-        --color-texto-secundario: #94A3B8; /* Texto secundario (Slate 400) */
-
+        /* Paleta de Colores Profesional */
+        --color-fondo: #0F172A;
+        --color-superficie: #1E293B;
+        --color-borde: #334155;
+        --color-acento: #F97316;
+        --color-acento-hover: #EA580C;
+        --color-texto-principal: #E2E8F0;
+        --color-texto-secundario: #94A3B8;
         --gradiente-acento: linear-gradient(45deg, var(--color-acento), var(--color-acento-hover));
     }
 	html {
@@ -55,7 +70,6 @@ const { title } = Astro.props;
 		margin: 0;
         color: var(--color-texto-principal);
 	}
-    /* Estilo para un botón global */
     .btn {
         background: var(--gradiente-acento);
         color: white;

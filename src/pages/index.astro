@@ -4,52 +4,54 @@ import Card from '../components/Card.astro';
 import { client } from '../utils/sanityClient';
 import type { Transmision } from '../types/sanity';
 
-const query = `*[_type == "transmision"]{_id, marca, modelo, precio, condicion, foto}`;
+const query = `*[_type == "transmision"]{_id, marca, modelo, precio, condicion, foto, slug}`;
 const transmisiones: Transmision[] = await client.fetch(query);
 ---
 
-<Layout title="Catálogo de Transmisiones - Transmisiones Automáticas SV">
- <main class="container">
-   <section class="hero">
-     <h1 class="hero-title">
-       <span>El Corazón de tu Vehículo,</span>
-       <span>Con la Confianza que Mereces.</span>
-     </h1>
-     <p class="hero-subtitle">
-       Descubre nuestra amplia selección de transmisiones automáticas, con garantía y el respaldo de expertos en El Salvador.
-     </p>
-   </section>
+<Layout 
+  title="Catálogo - Transmisiones Automáticas SV"
+  description="Encuentra transmisiones automáticas nuevas, usadas y reconstruidas para todas las marcas de vehículos en El Salvador. Garantía de hasta 12 meses."
+>
+  <main class="container">
+    <section class="hero">
+      <h1 class="hero-title">
+        <span>El Corazón de tu Vehículo,</span>
+        <span>Con la Confianza que Mereces.</span>
+      </h1>
+      <p class="hero-subtitle">
+        Descubre nuestra amplia selección de transmisiones automáticas, con garantía y el respaldo de expertos en El Salvador.
+      </p>
+    </section>
 
-   <div class="catalogo-grid">
-     {transmisiones.map((transmision) => (
-       <Card transmision={transmision} />
-     ))}
-   </div>
+    <div class="catalogo-grid">
+      {transmisiones.map((transmision) => (
+        <Card transmision={transmision} />
+      ))}
+    </div>
 
-   <div class="call-to-action">
-     <p>¿No encuentras lo que buscas? ¡Contáctanos hoy mismo para una asesoría personalizada!</p>
-     <a href="/contacto" class="btn btn-primario">Contactar a un Experto</a>
-   </div>
- </main>
+    <div class="call-to-action">
+      <p>¿No encuentras lo que buscas? ¡Contáctanos hoy mismo para una asesoría personalizada!</p>
+      <a href="/contacto" class="btn">Contactar a un Experto</a>
+    </div>
+  </main>
 </Layout>
 
 <style>
+  /* Tus estilos existentes quedan igual */
  .container {
    max-width: 1200px;
    margin: 2rem auto;
    padding: 2rem;
  }
-
- /* --- Hero Section --- */
  .hero {
    text-align: center;
    margin-bottom: 4rem;
  }
  .hero-title {
    font-size: 3rem;
-   color: var(--naranja-mecanico);
+   color: var(--color-acento);
    margin-bottom: 1rem;
-   overflow: hidden; /* Para la animación */
+   overflow: hidden;
  }
  .hero-title span {
    display: block;
@@ -61,48 +63,30 @@ const transmisiones: Transmision[] = await client.fetch(query);
  }
  .hero-subtitle {
    font-size: 1.2rem;
-   color: var(--texto-secundario);
+   color: var(--color-texto-secundario);
    max-width: 700px;
    margin: 0 auto;
  }
-
- /* --- Catálogo Grid --- */
  .catalogo-grid {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
    gap: 3rem;
  }
-
- /* --- Call to Action --- */
  .call-to-action {
    text-align: center;
    margin-top: 4rem;
    padding: 3rem 0;
-   background-color: var(--gris-oscuro);
+   background-color: var(--color-superficie);
    border-radius: 12px;
  }
  .call-to-action p {
    font-size: 1.2rem;
-   color: var(--texto-principal);
+   color: var(--color-texto-principal);
    margin-bottom: 1.5rem;
- }
- .btn-primario {
-   background: var(--naranja-gradiente);
-   color: white;
-   text-decoration: none;
-   padding: 1rem 2rem;
-   border-radius: 10px;
-   font-weight: bold;
-   transition: transform 0.2s ease, box-shadow 0.2s ease;
- }
- .btn-primario:hover {
-   transform: scale(1.05);
-   box-shadow: 0 8px 15px rgba(0,0,0,0.3);
  }
 </style>
 
 <script>
- // Añadimos una clase al hero title cuando la página carga para activar la animación
  document.addEventListener('DOMContentLoaded', () => {
    const heroTitle = document.querySelector('.hero-title');
    if (heroTitle) {

@@ -2,7 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Contacto - Transmisiones Automáticas SV">
+<Layout 
+  title="Contacto - Transmisiones Automáticas SV"
+  description="Contáctanos para cotizaciones, preguntas sobre nuestro inventario o para agendar una cita de servicio en nuestro taller en San Salvador."
+>
   <main class="container">
     <div class="header">
       <h1>Hablemos</h1>
@@ -90,25 +93,16 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-  // Seleccionamos el formulario y le decimos a TypeScript que es un formulario HTML
   const form = document.querySelector('form[name="contacto"]') as HTMLFormElement;
-
-  // Solo continuamos si el formulario realmente existe
   if (form) {
     form.addEventListener('submit', (event) => {
-      event.preventDefault(); // Evitamos que la página se recargue
-
+      event.preventDefault();
       const formData = new FormData(form);
-      
-      // Seleccionamos el botón y le decimos a TypeScript que es un botón
       const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-
-      // Solo modificamos el botón si realmente existe
       if (submitButton) {
         submitButton.textContent = 'Enviando...';
         submitButton.disabled = true;
       }
-
       fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -119,7 +113,6 @@ import Layout from '../layouts/Layout.astro';
         })
         .catch((error) => {
           alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.');
-          // Reactivamos el botón solo si existe
           if (submitButton) {
             submitButton.textContent = 'Enviar Mensaje';
             submitButton.disabled = false;

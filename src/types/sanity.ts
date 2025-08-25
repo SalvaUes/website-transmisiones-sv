@@ -8,4 +8,8 @@ export interface Transmision {
   precio: string;
   condicion: string;
   foto: SanityImageSource;
+  slug: { current: string }; // <-- Añadido para los enlaces
+  descripcion?: string;      // <-- Añadido para la página de detalle
+  sku?: string;              // <-- Añadido para la página de detalle
+  ano?: number;              // <-- Añadido para la página de detalle
 }
