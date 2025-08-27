@@ -1,9 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+// ¡CAMBIO AQUÍ! Importamos el nuevo componente .tsx
+import FadeIn from '../components/FadeIn.tsx'; 
 import { client } from '../utils/sanityClient';
 import type { Transmision } from '../types/sanity';
 
+// El resto del código frontmatter queda exactamente igual
 const query = `*[_type == "transmision"]{_id, marca, modelo, precio, condicion, foto, slug}`;
 const transmisiones: Transmision[] = await client.fetch(query);
 ---
@@ -25,72 +28,17 @@ const transmisiones: Transmision[] = await client.fetch(query);
 
     <div class="catalogo-grid">
       {transmisiones.map((transmision) => (
-        <Card transmision={transmision} />
+        <FadeIn>
+          <Card transmision={transmision} />
+        </FadeIn>
       ))}
     </div>
 
     <div class="call-to-action">
-      <p>¿No encuentras lo que buscas? ¡Contáctanos hoy mismo para una asesoría personalizada!</p>
-      <a href="/contacto" class="btn">Contactar a un Experto</a>
+      <FadeIn>
+        <p>¿No encuentras lo que buscas? ¡Contáctanos hoy mismo para una asesoría personalizada!</p>
+        <a href="/contacto" class="btn">Contactar a un Experto</a>
+      </FadeIn>
     </div>
   </main>
 </Layout>
-
-<style>
-  /* Tus estilos existentes quedan igual */
- .container {
-   max-width: 1200px;
-   margin: 2rem auto;
-   padding: 2rem;
- }
- .hero {
-   text-align: center;
-   margin-bottom: 4rem;
- }
- .hero-title {
-   font-size: 3rem;
-   color: var(--color-acento);
-   margin-bottom: 1rem;
-   overflow: hidden;
- }
- .hero-title span {
-   display: block;
-   transform: translateY(100%);
-   transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.1s;
- }
- .hero-title.loaded span {
-   transform: translateY(0);
- }
- .hero-subtitle {
-   font-size: 1.2rem;
-   color: var(--color-texto-secundario);
-   max-width: 700px;
-   margin: 0 auto;
- }
- .catalogo-grid {
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-   gap: 3rem;
- }
- .call-to-action {
-   text-align: center;
-   margin-top: 4rem;
-   padding: 3rem 0;
-   background-color: var(--color-superficie);
-   border-radius: 12px;
- }
- .call-to-action p {
-   font-size: 1.2rem;
-   color: var(--color-texto-principal);
-   margin-bottom: 1.5rem;
- }
-</style>
-
-<script>
- document.addEventListener('DOMContentLoaded', () => {
-   const heroTitle = document.querySelector('.hero-title');
-   if (heroTitle) {
-     heroTitle.classList.add('loaded');
-   }
- });
-</script>
