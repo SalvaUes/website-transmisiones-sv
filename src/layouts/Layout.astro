@@ -5,13 +5,13 @@ import Footer from '../components/Footer.astro';
 interface Props {
 	title: string;
     description: string;
-    image?: string; // Imagen opcional para redes sociales
+    image?: string;
 }
 
 const { 
     title, 
     description,
-    image = '/default-social-image.png' // Una imagen por defecto si no se especifica una
+    image = '/default-social-image.png'
 } = Astro.props;
 ---
 
@@ -24,21 +24,15 @@ const {
 		
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
-
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={new URL(image, Astro.url)} />
         <meta property="og:url" content={Astro.url} />
         <meta property="og:type" content="website" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={new URL(image, Astro.url)} />
 	</head>
 	<body>
 		<Header />
@@ -48,23 +42,24 @@ const {
 </html>
 <style is:global>
     :root {
-        /* Paleta de Colores Profesional */
-        --color-fondo: #0F172A;
-        --color-superficie: #1E293B;
-        --color-borde: #334155;
-        --color-acento: #F97316;
-        --color-acento-hover: #EA580C;
-        --color-texto-principal: #E2E8F0;
-        --color-texto-secundario: #94A3B8;
+        /* Paleta de Colores Refinada */
+        --color-fondo: #0a0a0a; /* Negro profundo */
+        --color-superficie: #1a1a1a; /* Gris casi negro */
+        --color-borde: #2a2a2a;
+        --color-acento: #ff8c00; /* Naranja oscuro, más elegante */
+        --color-acento-hover: #ffa500;
+        --color-texto-principal: #f0f0f0;
+        --color-texto-secundario: #a0a0a0;
         --gradiente-acento: linear-gradient(45deg, var(--color-acento), var(--color-acento-hover));
     }
 	html {
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Inter', sans-serif; /* Nueva fuente para el cuerpo */
 		background: var(--color-fondo);
         scroll-behavior: smooth;
 	}
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Orbitron', sans-serif; /* Nueva fuente para títulos */
+        letter-spacing: 1px;
     }
 	body {
 		margin: 0;
@@ -72,13 +67,14 @@ const {
 	}
     .btn {
         background: var(--gradiente-acento);
-        color: white;
+        color: var(--color-fondo);
         text-decoration: none;
         padding: 0.8rem 1.5rem;
         border-radius: 8px;
         font-weight: bold;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         display: inline-block;
+        border: none;
     }
     .btn:hover {
         transform: scale(1.05);

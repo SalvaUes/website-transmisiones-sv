@@ -1,45 +1,109 @@
 ---
 import { urlFor } from '../utils/sanity';
 import type { Transmision } from '../types/sanity';
-import { Icon } from 'astro-icon/components';
 
 interface Props {
   transmision: Transmision;
 }
 const { transmision } = Astro.props;
-const { marca, modelo, precio, condicion, foto, slug } = transmision; // <-- Obtenemos el slug
+const { marca, modelo, precio, condicion, slug } = transmision;
+const foto = transmision.foto;
 ---
 
 <a href={`/transmisiones/${slug.current}`} class="card-link">
   <div class="card">
     <div class="image-container">
       {foto && (
-        <img src={urlFor(foto).width(400).height(300).url()} alt={`Foto de ${marca} ${modelo}`} />
+        <img src={urlFor(foto).width(400).height(300).auto('format').quality(80).url()} alt={`Foto de ${marca} ${modelo}`} loading="lazy" />
       )}
+      <div class="image-overlay"></div>
+      <span class={`tag ${condicion.toLowerCase()}`}>{condicion}</span>
     </div>
     <div class="card-content">
-      <h2>{marca} {modelo}</h2>
-      <p class="price">${precio}</p>
-      <span class="tag">{condicion}</span>
+      <h3 class="card-title">{marca} {modelo}</h3>
+      <p class="card-price">${precio}</p>
+      <div class="card-footer">
+        Ver Detalles
+      </div>
     </div>
   </div>
 </a>
 
 <style>
-  .card-link { text-decoration: none; } /* Quitamos el subrayado del enlace */
-  .card {
-    background-color: var(--color-superficie);
-    color: var(--color-texto-principal);
-    border: 1px solid var(--color-borde);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  .card-link {
+    text-decoration: none;
+    display: block;
     height: 100%;
   }
-  .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+  .card {
+    background-color: var(--color-superficie);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--color-borde);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
-  /* El resto de tus estilos de la tarjeta quedan igual */
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  }
+  .image-container {
+    position: relative;
+  }
+  .card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+  .image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26, 26, 26, 0.8), transparent 50%);
+  }
+  .tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-title {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+    color: var(--color-texto-principal);
+  }
+  .card-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-acento);
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+  .card-footer {
+    margin-top: auto;
+    color: var(--color-acento);
+    font-weight: bold;
+    align-self: flex-end;
+    transition: letter-spacing 0.3s ease;
+  }
+  .card:hover .card-footer {
+    letter-spacing: 1px;
+  }
 </style>
