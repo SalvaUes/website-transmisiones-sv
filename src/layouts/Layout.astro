@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { client } from '../utils/sanityClient'; // <-- 1. IMPORTAMOS EL CLIENTE AQUÍ
 
 interface Props {
 	title: string;
@@ -13,13 +14,16 @@ const {
     description,
     image = '/default-social-image.png'
 } = Astro.props;
+
+// 2. BUSCAMOS LOS AJUSTES UNA SOLA VEZ, EN EL LAYOUT PRINCIPAL
+const ajustes = await client.fetch(`*[_type == "ajustes"][0]`);
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,28 +41,29 @@ const {
 	<body>
 		<Header />
 		<slot />
-		<Footer />
-	</body>
+		<Footer ajustes={ajustes} /> </body>
 </html>
 <style is:global>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     :root {
-        /* Paleta de Colores Refinada */
-        --color-fondo: #0a0a0a; /* Negro profundo */
-        --color-superficie: #1a1a1a; /* Gris casi negro */
+        --color-fondo: #0a0a0a;
+        --color-superficie: #1a1a1a;
         --color-borde: #2a2a2a;
-        --color-acento: #ff8c00; /* Naranja oscuro, más elegante */
+        --color-acento: #ff8c00;
         --color-acento-hover: #ffa500;
         --color-texto-principal: #f0f0f0;
         --color-texto-secundario: #a0a0a0;
         --gradiente-acento: linear-gradient(45deg, var(--color-acento), var(--color-acento-hover));
     }
 	html {
-		font-family: 'Inter', sans-serif; /* Nueva fuente para el cuerpo */
+		font-family: 'Inter', sans-serif;
 		background: var(--color-fondo);
         scroll-behavior: smooth;
 	}
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Orbitron', sans-serif; /* Nueva fuente para títulos */
+        font-family: 'Orbitron', sans-serif;
         letter-spacing: 1px;
     }
 	body {
