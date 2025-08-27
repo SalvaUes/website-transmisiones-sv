@@ -4,8 +4,8 @@
   <div class="container">
     <div class="logo">
       <a href="/">
-        <h1>Transmisiones Automáticas SV</h1>
-        <p>Confianza y Rendimiento Garantizado</p>
+        <h1>Transmisiones SV</h1>
+        <p>Confianza y Rendimiento</p>
       </a>
     </div>
     <nav>
@@ -19,15 +19,15 @@
 
 <style>
   header {
-    background-color: var(--color-fondo); /* Usamos la variable global */
-    border-bottom: 1px solid var(--color-borde);
-    padding: 1.5rem 1rem;
-    color: var(--color-texto-principal);
-    position: sticky; /* Hacemos que el header se quede fijo al hacer scroll */
+    position: sticky;
     top: 0;
-    z-index: 10;
-    backdrop-filter: blur(10px); /* Efecto de desenfoque para el fondo */
-    background-color: rgba(15, 23, 42, 0.8); /* Fondo semi-transparente */
+    z-index: 50;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: rgba(15, 23, 42, 0.8); /* Fondo semi-transparente para el efecto glass */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-borde);
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
   }
   .container {
     max-width: 1200px;
@@ -35,8 +35,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
   }
   .logo a {
     text-decoration: none;
@@ -45,11 +43,12 @@
   .logo h1 {
     margin: 0;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 800;
+    text-transform: uppercase;
   }
   .logo p {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--color-texto-secundario);
   }
   nav {
@@ -61,27 +60,30 @@
     color: var(--color-texto-secundario);
     font-weight: 500;
     transition: color 0.2s ease;
-    position: relative; /* Para el efecto de subrayado */
-    padding-bottom: 0.5rem;
+    font-family: 'Inter', sans-serif;
   }
   nav a:hover {
     color: var(--color-acento);
   }
-  /* Efecto de subrayado al pasar el mouse */
-  nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-acento);
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-out;
-  }
-  nav a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+  
+  /* Media Query para responsividad en móviles */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    nav {
+      gap: 1.5rem;
+      width: 100%;
+      justify-content: space-around;
+      border-top: 1px solid var(--color-borde);
+      padding-top: 1rem;
+    }
+    .logo h1 {
+      font-size: 1.2rem;
+    }
+    nav a {
+      font-size: 0.9rem;
+    }
   }
 </style>
