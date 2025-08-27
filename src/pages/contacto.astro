@@ -53,25 +53,62 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .container { max-width: 1100px; margin: 2rem auto; padding: 1rem; }
-  .header { text-align: center; margin-bottom: 4rem; }
-  .header h1 { font-size: 3rem; color: white; }
-  .header p { font-size: 1.2rem; color: var(--color-texto-secundario); max-width: 600px; margin: 0.5rem auto 0; }
+  .container { 
+    max-width: 1100px; 
+    margin: 2rem auto; 
+    padding: 1rem; 
+  }
+  .header { 
+    text-align: center; 
+    margin-bottom: 3rem; 
+  }
+  .header h1 { 
+    font-size: 2.5rem; 
+    color: white; 
+  }
+  .header p { 
+    font-size: 1.1rem; 
+    color: var(--color-texto-secundario); 
+    max-width: 600px; 
+    margin: 0.5rem auto 0; 
+  }
+  
   .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 4rem;
+    grid-template-columns: 1fr 1.5fr; /* Dos columnas en desktop */
+    gap: 3rem;
     background-color: var(--color-superficie);
     padding: 3rem;
     border-radius: 12px;
     border: 1px solid var(--color-borde);
   }
-  .contact-info h3, .contact-form h3 { font-size: 1.8rem; color: var(--color-acento); margin-bottom: 1.5rem; }
-  .contact-info p { line-height: 1.8; font-size: 1.1rem; }
-  .contact-info a { color: var(--color-texto-principal); text-decoration: none; }
-  .contact-info a:hover { color: var(--color-acento); }
-  .form-group { margin-bottom: 1.5rem; }
-  .form-group label { display: block; margin-bottom: 0.5rem; color: var(--color-texto-secundario); }
+  
+  .contact-info h3, .contact-form h3 { 
+    font-size: 1.8rem; 
+    color: var(--color-acento); 
+    margin-bottom: 1.5rem; 
+  }
+  
+  .contact-info p { 
+    line-height: 1.8; 
+    font-size: 1.1rem; 
+  }
+  .contact-info a { 
+    color: var(--color-texto-principal); 
+    text-decoration: none; 
+  }
+  .contact-info a:hover { 
+    color: var(--color-acento); 
+  }
+  
+  .form-group { 
+    margin-bottom: 1.5rem; 
+  }
+  .form-group label { 
+    display: block; 
+    margin-bottom: 0.5rem; 
+    color: var(--color-texto-secundario); 
+  }
   .form-group input, .form-group textarea {
     width: 100%;
     padding: 0.8rem 1rem;
@@ -87,11 +124,22 @@ import Layout from '../layouts/Layout.astro';
     border-color: var(--color-acento);
     box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
   }
+
+  /* Esta es la regla que arregla el diseño en móviles */
   @media (max-width: 768px) {
-    .contact-grid { grid-template-columns: 1fr; padding: 2rem; }
+    .header h1 {
+      font-size: 2rem;
+    }
+    .contact-grid {
+      grid-template-columns: 1fr; /* Forzamos a una sola columna */
+      padding: 2rem 1.5rem;
+      gap: 3rem;
+    }
+    .contact-info {
+      text-align: center; /* Centramos el texto de info en móvil */
+    }
   }
 </style>
-
 <script>
   const form = document.querySelector('form[name="contacto"]') as HTMLFormElement;
   if (form) {

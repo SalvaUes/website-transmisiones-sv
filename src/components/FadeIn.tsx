@@ -1,7 +1,6 @@
 // src/components/FadeIn.tsx
 import { motion } from "framer-motion";
 
-// Definimos los tipos para las propiedades del componente
 interface Props {
   children: React.ReactNode;
 }
@@ -18,7 +17,10 @@ const FadeIn = ({ children }: Props) => {
       initial="hidden"
       whileInView="visible"
       transition={{ duration: 0.5, ease: "easeOut" }}
-      // HEMOS QUITADO LA LÍNEA "viewport={{ once: true }}"
+      // --- REFACTORIZACIÓN CLAVE ---
+      // Le decimos que active la animación cuando el 20% del elemento sea visible.
+      // Esto soluciona problemas en móviles.
+      viewport={{ amount: 0.2 }} 
     >
       {children}
     </motion.div>
