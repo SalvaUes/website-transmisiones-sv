@@ -1,82 +1,470 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
-import FadeIn from '../components/FadeIn.tsx';
+import FiltroTipoVehiculo from '../components/FiltroTipoVehiculo';
 import { client } from '../utils/sanityClient';
 import type { Transmision } from '../types/sanity';
 
-const query = `*[_type == "transmision"]{_id, marca, modelo, precio, condicion, foto, slug}`;
+const query = `*[_type == "transmision"]{_id, marca, modelo, precio, condicion, foto, slug, ano}`;
 const transmisiones: Transmision[] = await client.fetch(query);
 ---
 
-<Layout 
+<Layout
   title="Catálogo - Transmisiones Automáticas SV"
   description="Encuentra transmisiones automáticas nuevas, usadas y reconstruidas para todas las marcas de vehículos en El Salvador. Garantía de hasta 12 meses."
 >
-  <main class="container">
-    <section class="hero">
-      <h1 class="hero-title">
-        <span>Transmisiones Automáticas SV</span>
-      </h1>
-      <p class="hero-subtitle">
-        Confianza y Rendimiento Garantizado. Descubre nuestra selección de transmisiones con el respaldo de expertos en El Salvador.
-      </p>
+
+    <!-- Hero Cinemático con Parallax -->
+    <section class="hero-parallax">
+        <div class="hero-background">
+            <div class="floating-elements">
+                <div class="gear gear-1 animate-on-scroll">⚙️</div>
+                <div class="gear gear-2 animate-on-scroll">🔧</div>
+                <div class="gear gear-3 animate-on-scroll">🚗</div>
+            </div>
+            <div class="particle-grid"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title animate-on-scroll">
+                <span class="title-line">Transmisiones</span>
+                <span class="title-line highlight-gradient">Automáticas SV</span>
+            </h1>
+            <p class="hero-subtitle animate-on-scroll">
+                Confianza y rendimiento garantizado. Expertos en transmisiones 
+                <br>con respaldo técnico en todo El Salvador.
+            </p>
+            
+            <div class="hero-stats animate-on-scroll">
+                <div class="stat-card">
+                    <span class="stat-number" data-count="15">0</span>
+                    <span class="stat-label">Años de Experiencia</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="500">0</span>
+                    <span class="stat-label">Transmisiones Reparadas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Meses de Garantía</span>
+                </div>
+            </div>
+
+            <div class="cta-section animate-on-scroll">
+                <a href="#catalogo" class="cta-primary">
+                    <span>Ver Catálogo</span>
+                    <span class="arrow">↓</span>
+                </a>
+                <a href="/contacto" class="cta-secondary">
+                    <span>Solicitar Cotización</span>
+                </a>
+            </div>
+        </div>
     </section>
 
-    <div class="catalogo-grid">
-      {transmisiones.map((transmision) => (
-        <FadeIn client:visible>
-          <Card transmision={transmision} />
-        </FadeIn>
-      ))}
-    </div>
-  </main>
+    <!-- Filtros con Animación -->
+    <section class="filters-section animate-on-scroll" id="catalogo">
+        <div class="container">
+            <FiltroTipoVehiculo 
+                client:load 
+                transmisiones={transmisiones} 
+                onFilterChange={(filtered) => {
+                    const grid = document.querySelector('.catalogo-grid');
+                    const noResults = document.getElementById('no-results');
+                    
+                    if (!grid || !noResults) return;
+
+                    const allCards = Array.from(grid.children) as HTMLElement[];
+                    let visibleCount = 0;
+
+                    allCards.forEach((card, index) => {
+                        const id = card.dataset.id;
+                        const shouldShow = filtered.some(t => t._id === id);
+                        
+                        if (shouldShow) {
+                            card.style.display = 'block';
+                            card.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s both`;
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    noResults.style.display = visibleCount === 0 ? 'flex' : 'none';
+                }}
+            />
+        </div>
+    </section>
+
+    <!-- Catálogo con Grid Animado -->
+    <section class="catalogo-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2>Nuestro Catálogo</h2>
+                <p>Encuentra la transmisión perfecta para tu vehículo</p>
+            </div>
+            
+            <div class="catalogo-grid" id="catalogo-grid">
+                {transmisiones.map((transmision, index) => (
+                    <div 
+                        data-id={transmision._id} 
+                        class="card-wrapper animate-on-scroll"
+                        style={`animation-delay: ${index * 0.1}s`}
+                    >
+                        <Card transmision={transmision} />
+                    </div>
+                ))}
+            </div>
+
+            <div id="no-results" class="no-results">
+                <div class="no-results-icon">🔍</div>
+                <h3>No encontramos transmisiones con esos filtros</h3>
+                <p>Intenta ajustar tus criterios o contacta a nuestros expertos</p>
+                <a href="/contacto" class="btn">Solicitar Ayuda</a>
+            </div>
+        </div>
+    </section>
+
 </Layout>
 
 <style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  .hero {
+/* Hero Parallax */
+.hero-parallax {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 4rem 1rem;
-    border-bottom: 1px solid var(--color-borde);
-    margin-bottom: 4rem;
-  }
-  .hero-title {
-    font-size: 3.5rem;
-    color: var(--color-texto-principal);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-  }
-  .hero-subtitle {
-    font-size: 1.2rem;
-    color: var(--color-texto-secundario);
-    max-width: 700px;
-    margin: 0 auto;
+    overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        var(--color-secondary) 0%,
+        var(--color-background) 50%,
+        var(--color-accent) 100%
+    );
+}
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+}
+
+.floating-elements {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.gear {
+    position: absolute;
+    font-size: 3rem;
+    filter: blur(1px);
+    animation: float 8s ease-in-out infinite;
+}
+
+.gear-1 {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.gear-2 {
+    top: 70%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.gear-3 {
+    bottom: 20%;
+    left: 50%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-30px) rotate(180deg);
+    }
+}
+
+.particle-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 140, 66, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(15, 52, 96, 0.1) 0%, transparent 50%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 var(--spacing-md);
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-md);
+}
+
+.title-line {
+    display: block;
+}
+
+.highlight-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-xl);
     line-height: 1.6;
-  }
-  .catalogo-grid {
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: all var(--transition-medium);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-family: 'Orbitron', sans-serif;
+    counter-reset: num;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cta-section {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-primary {
+    background: var(--gradient-primary);
+    color: var(--color-background);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-medium);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left var(--transition-medium);
+}
+
+.cta-primary:hover::before {
+    left: 100%;
+}
+
+.cta-secondary {
+    background: transparent;
+    color: var(--color-text);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid var(--color-primary);
+    transition: all var(--transition-medium);
+}
+
+.cta-secondary:hover {
+    background: var(--color-primary);
+    color: var(--color-background);
+}
+
+.arrow {
+    display: inline-block;
+    transition: transform var(--transition-medium);
+}
+
+.cta-primary:hover .arrow {
+    transform: translateY(5px);
+}
+
+/* Sections */
+.filters-section {
+    padding: var(--spacing-2xl) 0;
+    background: var(--color-surface);
+}
+
+.catalogo-section {
+    padding: var(--spacing-2xl) 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+}
+
+.section-header p {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+}
+
+.catalogo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-  }
-  /* Media Query para responsividad en móviles */
-  @media (max-width: 768px) {
-    .hero {
-      padding: 2rem 1rem;
-      margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.no-results {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.no-results-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.no-results h3 {
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
+}
+
+.no-results p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Counter Animation */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-    .hero-title {
-      font-size: 2.5rem;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-    .hero-subtitle {
-      font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-parallax {
+        min-height: 80vh;
     }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .stat-card {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .cta-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
     .catalogo-grid {
-      gap: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
     }
-  }
+}
 </style>
+
+<script>
+// Counter Animation
+function animateCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count') || '0');
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                counter.textContent = Math.floor(current).toString();
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target.toString();
+            }
+        };
+
+        updateCounter();
+    });
+}
+
+// Initialize counters when visible
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounters();
+            counterObserver.unobserve(entry.target);
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const statsSection = document.querySelector('.hero-stats');
+    if (statsSection) {
+        counterObserver.observe(statsSection);
+    }
+});
+</script>

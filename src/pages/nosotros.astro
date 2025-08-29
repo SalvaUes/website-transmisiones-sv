@@ -1,50 +1,399 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 ---
-<Layout title="Sobre Nosotros - Transmisiones Automáticas SV">
-  <main class="container">
-    <section class="hero">
-      <h1>Expertos en los que puedes confiar</h1>
-      <p>Más de 15 años de experiencia restaurando el corazón de tu vehículo.</p>
+<Layout 
+    title="Sobre Nosotros - Transmisiones Automáticas SV"
+    description="Conoce nuestra historia. Expertos en transmisiones con 15+ años en El Salvador."
+>
+    <!-- Hero Glassmorphism -->
+    <section class="hero-glass">
+        <div class="glass-background"></div>
+        <div class="hero-content animate-on-scroll">
+            <h1 class="hero-title">
+                <span class="title-primary">Expertos</span>
+                <span class="title-secondary">en los que puedes confiar</span>
+            </h1>
+            <p class="hero-subtitle">15+ años restaurando el corazón de tu vehículo</p>
+        </div>
     </section>
-    
-    <section class="content-grid">
-      <div class="text-content">
-        <h2>Nuestra Historia</h2>
-        <p>
-          Transmisiones Automáticas SV nació de una pasión por la mecánica de precisión. Fundada en 2008, comenzamos como un pequeño taller dedicado a resolver los problemas más complejos que otros no podían. Hoy, somos el referente en El Salvador para la venta y reparación de transmisiones automáticas, manteniendo siempre nuestro compromiso con la calidad y la honestidad.
-        </p>
-        <h2>Nuestra Misión</h2>
-        <p>
-          Nuestra misión es simple: devolverle a cada cliente la tranquilidad y la confianza en su vehículo. Lo logramos ofreciendo productos de la más alta calidad, un servicio técnico impecable y la mejor garantía del mercado. No solo vendemos partes; ofrecemos soluciones duraderas.
-        </p>
-      </div>
-      <div class="image-content">
-        
-      </div>
-    </section>
-  </main>
+
+    <!-- Content with Stagger Animations -->
+    <main class="content-container">
+        <!-- Historia Section -->
+        <section class="story-section animate-on-scroll">
+            <div class="story-card">
+                <div class="story-icon">
+                    <Icon name="mdi:clock-outline" />
+                </div>
+                <div class="story-content">
+                    <h2>Nuestra Historia</h2>
+                    <p>
+                        Transmisiones Automáticas SV nació de una pasión por la mecánica de precisión. 
+                        Fundada en 2008, comenzamos como un pequeño taller y hoy somos el referente 
+                        en El Salvador con más de 500 transmisiones reparadas.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Misión Section -->
+        <section class="mission-section animate-on-scroll">
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <Icon name="mdi:target" />
+                </div>
+                <div class="mission-content">
+                    <h2>Nuestra Misión</h2>
+                    <p>
+                        Devolverle a cada cliente la tranquilidad y confianza en su vehículo mediante 
+                        productos de alta calidad, servicio técnico impecable y la mejor garantía del mercado.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Grid -->
+        <section class="stats-section animate-on-scroll">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <Icon name="mdi:calendar-today" />
+                    </div>
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-label">Años de Experiencia</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <Icon name="mdi:cog" />
+                    </div>
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Transmisiones Reparadas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <Icon name="mdi:shield-check" />
+                    </div>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Clientes Satisfechos</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features-section animate-on-scroll">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <Icon name="mdi:shield-check" />
+                    <span>Garantía Extendida</span>
+                </div>
+                <div class="feature-card">
+                    <Icon name="mdi:wrench" />
+                    <span>Técnicos Certificados</span>
+                </div>
+                <div class="feature-card">
+                    <Icon name="mdi:truck" />
+                    <span>Atención Domicilio</span>
+                </div>
+            </div>
+        </section>
+    </main>
 </Layout>
 
 <style>
-  .container { max-width: 1100px; margin: 0 auto; padding: 1rem; }
-  .hero { text-align: center; padding: 4rem 1rem; }
-  .hero h1 { font-size: 3rem; color: white; margin-bottom: 1rem; }
-  .hero p { font-size: 1.25rem; color: var(--texto-secundario); }
-
-  .content-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
+/* Glass Hero */
+.hero-glass {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
     align-items: center;
-  }
-  .text-content h2 { font-size: 2rem; color: var(--naranja-mecanico); margin-bottom: 1rem; }
-  .text-content p { line-height: 1.8; font-size: 1.1rem; color: var(--texto-secundario); margin-bottom: 2rem; }
-  
-  .image-content img { width: 100%; border-radius: 8px; }
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    overflow: hidden;
+}
 
-  @media (max-width: 768px) {
-    .content-grid { grid-template-columns: 1fr; }
-    .image-content { order: -1; margin-bottom: 2rem; }
-  }
+.glass-background {
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 140, 66, 0.1) 0%, transparent 50%);
+    filter: blur(40px);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+}
+
+.hero-title {
+    margin-bottom: 1rem;
+}
+
+.title-primary {
+    display: block;
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff6b00, #ff8c42);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.title-secondary {
+    display: block;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    color: #a8b2d1;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    color: #a8b2d1;
+    margin-bottom: 2rem;
+}
+
+/* Content Container */
+.content-container {
+    padding: 4rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Story Cards */
+.story-section,
+.mission-section {
+    margin-bottom: 3rem;
+}
+
+.story-card,
+.mission-card {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 107, 0, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    transition: all 0.4s ease;
+}
+
+.story-card:hover,
+.mission-card:hover {
+    transform: translateY(-5px);
+    border-color: #ff6b00;
+}
+
+.story-icon,
+.mission-icon {
+    font-size: 2.5rem;
+    color: #ff6b00;
+    flex-shrink: 0;
+}
+
+.story-content h2,
+.mission-content h2 {
+    font-size: 1.75rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.story-content p,
+.mission-content p {
+    color: #a8b2d1;
+    line-height: 1.7;
+}
+
+/* Stats Section */
+.stats-section {
+    margin: 4rem 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.stat-item {
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(255, 107, 0, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 107, 0, 0.1);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    color: #ff6b00;
+    margin-bottom: 1rem;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ff6b00;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #a8b2d1;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Features */
+.features-section {
+    margin: 4rem 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature-card {
+    background: rgba(15, 52, 96, 0.2);
+    border: 1px solid rgba(255, 107, 0, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.4s ease;
+}
+
+.feature-card:hover {
+    transform: translateX(5px);
+    background: rgba(255, 107, 0, 0.1);
+}
+
+.feature-card :global(.astro-icon) {
+    font-size: 1.5rem;
+    color: #ff6b00;
+    flex-shrink: 0;
+}
+
+.feature-card span {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Scroll Animations */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.animate-on-scroll.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .hero-glass {
+        min-height: 50vh;
+    }
+    
+    .content-container {
+        padding: 2rem 1rem;
+    }
+    
+    .story-card,
+    .mission-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .stats-grid,
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-item,
+    .feature-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title-primary {
+        font-size: 2.5rem;
+    }
+    
+    .title-secondary {
+        font-size: 1.5rem;
+    }
+}
 </style>
+
+<script>
+// Counter Animation
+function animateCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.getAttribute('data-count') || '0');
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toString();
+                    }
+                };
+
+                updateCounter();
+                counterObserver.unobserve(counter);
+            }
+        });
+    });
+
+    counters.forEach(counter => counterObserver.observe(counter));
+}
+
+// Glass Header Effect
+let lastScrollY = window.scrollY;
+const handleScroll = () => {
+    const scrollY = window.scrollY;
+    const hero = document.querySelector('.hero-glass');
+    
+    if (hero && hero instanceof HTMLElement) {
+        const opacity = Math.max(0.3, 1 - scrollY / 300);
+        const blur = Math.min(20, scrollY / 10);
+        
+        hero.style.backdropFilter = `blur(${blur}px)`;
+        hero.style.opacity = opacity.toString();
+    }
+    
+    lastScrollY = scrollY;
+};
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    animateCounters();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+});
+</script>

@@ -1,59 +1,190 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Icon } from 'astro-icon/components'; // Importamos el componente de iconos
+import { Icon } from 'astro-icon/components';
 ---
-<Layout title="Servicios - Transmisiones Automáticas SV">
-  <main class="container">
-    <div class="header">
-        <h1>Nuestros Servicios</h1>
-        <p>Soluciones completas para tu transmisión automática.</p>
-    </div>
-    <div class="services-grid">
-        <div class="service-card">
-            <Icon name="mdi:cogs" class="service-icon" />
-            <h3>Venta de Transmisiones</h3>
-            <p>El catálogo más completo de transmisiones nuevas, usadas y reconstruidas, todas con hasta 12 meses de garantía.</p>
+<Layout 
+    title="Servicios - Transmisiones Automáticas SV"
+    description="Servicios completos de transmisiones automáticas. Venta, instalación, diagnóstico y mantenimiento en El Salvador."
+>
+    <!-- Glass Hero -->
+    <section class="hero-glass">
+        <div class="glass-background"></div>
+        <div class="hero-content animate-on-scroll">
+            <h1 class="hero-title">Nuestros Servicios</h1>
+            <p class="hero-subtitle">Soluciones completas para tu transmisión automática</p>
         </div>
-        <div class="service-card">
-            <Icon name="mdi:wrench" class="service-icon" />
-            <h3>Instalación Profesional</h3>
-            <p>Contamos con técnicos certificados para la instalación precisa de tu transmisión, garantizando un rendimiento óptimo.</p>
+    </section>
+
+    <!-- Services Grid -->
+    <main class="content-container">
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">
+                    <Icon name="mdi:cogs" />
+                </div>
+                <h3>Venta de Transmisiones</h3>
+                <p>Catálogo completo de transmisiones nuevas, usadas y reconstruidas con hasta 12 meses de garantía.</p>
+                <div class="service-features">
+                    <span>✓ Garantía extendida</span>
+                    <span>✓ Todas las marcas</span>
+                </div>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">
+                    <Icon name="mdi:wrench" />
+                </div>
+                <h3>Instalación Profesional</h3>
+                <p>Técnicos certificados para instalación precisa y rendimiento óptimo garantizado.</p>
+                <div class="service-features">
+                    <span>✓ Técnicos certificados</span>
+                    <span>✓ Instalación garantizada</span>
+                </div>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">
+                    <Icon name="mdi:magnify-scan" />
+                </div>
+                <h3>Diagnóstico por Computadora</h3>
+                <p>Tecnología de punta para diagnóstico exacto de fallas en tu sistema de transmisión.</p>
+                <div class="service-features">
+                    <span>✓ Diagnóstico preciso</span>
+                    <span>✓ Equipos modernos</span>
+                </div>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">
+                    <Icon name="mdi:oil" />
+                </div>
+                <h3>Mantenimiento Preventivo</h3>
+                <p>Cambio de aceite y filtro esencial para prolongar la vida útil de tu transmisión.</p>
+                <div class="service-features">
+                    <span>✓ Mantenimiento preventivo</span>
+                    <span>✓ Aceites de calidad</span>
+                </div>
+            </div>
         </div>
-        <div class="service-card">
-            <Icon name="mdi:magnify-scan" class="service-icon" />
-            <h3>Diagnóstico por Computadora</h3>
-            <p>Utilizamos tecnología de punta para diagnosticar con exactitud cualquier falla en tu sistema de transmisión.</p>
-        </div>
-         <div class="service-card">
-            <Icon name="mdi:oil" class="service-icon" />
-            <h3>Mantenimiento Preventivo</h3>
-            <p>Servicio de cambio de aceite y filtro, esencial para prolongar la vida útil de tu transmisión y evitar reparaciones costosas.</p>
-        </div>
-    </div>
-  </main>
+
+        <!-- CTA Section -->
+        <section class="cta-section animate-on-scroll">
+            <h2>¿Listo para mejorar tu vehículo?</h2>
+            <a href="/contacto" class="cta-button">
+                <span>Solicitar Cotización</span>
+                <Icon name="mdi:arrow-right" />
+            </a>
+        </section>
+    </main>
 </Layout>
+
 <style>
-.container { max-width: 1100px; margin: 2rem auto; padding: 1rem; }
-.header { text-align: center; margin-bottom: 3rem; }
-.header h1 { font-size: 2.5rem; color: white; }
-.header p { font-size: 1.1rem; color: var(--texto-secundario); }
+/* Use same glass hero styles from nosotros.astro */
+
+.content-container {
+    padding: 4rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    margin-bottom: 4rem;
 }
+
 .service-card {
-    background-color: var(--gris-oscuro);
-    border: 1px solid var(--gris-claro);
-    border-radius: 8px;
-    padding: 2rem;
-    text-align: center; /* Centramos el contenido */
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 107, 0, 0.2);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.4s ease;
 }
+
+.service-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 107, 0, 0.1);
+    border-color: #ff6b00;
+}
+
 .service-icon {
-    font-size: 3rem; /* Tamaño del icono */
-    color: var(--naranja-mecanico);
+    font-size: 3rem;
+    color: #ff6b00;
+    margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    color: white;
     margin-bottom: 1rem;
 }
-.service-card h3 { font-size: 1.5rem; color: var(--texto-principal); margin-top: 0; margin-bottom: 1rem; }
-.service-card p { line-height: 1.8; color: var(--texto-secundario); }
+
+.service-card p {
+    color: #a8b2d1;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.service-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.service-features span {
+    color: #a8b2d1;
+}
+
+.service-features span::before {
+    content: '✓ ';
+    color: #ff6b00;
+}
+
+.cta-section {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.cta-section h2 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #ff6b00, #ff8c42);
+    color: #0a0a0a;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 107, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .service-card {
+        padding: 2rem;
+    }
+}
 </style>
+
+<script>
+// Use same scroll animations from nosotros.astro
+</script>

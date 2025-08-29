@@ -1,51 +1,90 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-
-<Layout title="Mensaje Enviado - Gracias">
-  <main class="container thank-you-page">
-    <h1>¡Mensaje Recibido! ✅</h1>
-    <p>
-      Gracias por contactarnos. Hemos recibido tu mensaje y te responderemos a la brevedad posible.
-    </p>
-    <a href="/" class="btn">Volver al Inicio</a>
-  </main>
+<Layout 
+    title="Mensaje Enviado - Gracias"
+    description="Gracias por contactarte con Transmisiones Automáticas SV. Tu mensaje ha sido recibido correctamente."
+>
+    <main class="container thank-you-page">
+        <div class="thank-you-content">
+            <div class="icon">✅</div>
+            <h1>¡Mensaje Recibido!</h1>
+            <p>
+                Gracias por contactarnos. Hemos recibido tu mensaje y te responderemos 
+                a la brevedad posible.
+            </p>
+            <a href="/" class="btn">
+                <span>Volver al Inicio</span>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </main>
 </Layout>
 
 <style>
-  .thank-you-page {
-    text-align: center;
-    padding: 5rem 1rem;
-    min-height: 60vh;
+.thank-you-page {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-  }
-  .thank-you-page h1 {
-    font-size: 2.5rem;
-    color: var(--color-acento); /* Usa una de tus variables de color */
-    margin-bottom: 1rem;
-  }
-  .thank-you-page p {
-    font-size: 1.2rem;
-    color: var(--color-texto-principal); /* Usa una de tus variables de color */
+    justify-content: center;
+    min-height: 60vh;
+    padding: 2rem 1rem;
+}
+
+.thank-you-content {
+    text-align: center;
     max-width: 500px;
+}
+
+.icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--color-acento);
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.2rem;
+    color: var(--color-texto-secundario);
     margin-bottom: 2rem;
-  }
-  .btn {
-    /* Puedes copiar los estilos de tu otro botón para que sea consistente */
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background-color: var(--color-acento);
-    color: white;
+    line-height: 1.7;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--color-gradiente);
+    color: var(--color-fondo);
+    border-radius: 50px;
+    font-weight: 600;
     text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: transform 0.2s, background-color 0.2s;
-  }
-  .btn:hover {
-    transform: scale(1.05);
-    background-color: #ff9838; /* Un color ligeramente más claro para el hover */
-  }
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.btn:hover .arrow {
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    p {
+        font-size: 1.1rem;
+    }
+}
 </style>
