@@ -9,6 +9,17 @@ export default defineConfig({
   build: {
     format: 'file'
   },
+  server: {
+    host: 'localhost',
+    port: 4321
+  },
+  vite: {
+    server: {
+      host: 'localhost',
+      port: 4321,
+      strictPort: true
+    }
+  },
   integrations: [sanity({
     projectId: 'xr5j5141', // Asegúrate de que tu ID sigue aquí
     dataset: 'production',
