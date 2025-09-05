@@ -610,41 +610,40 @@ const transmisiones: Transmision[] = await client.fetch(query);
     /* ===== RESPONSIVE OPTIMIZATIONS ===== */
     @media (max-width: 768px) {
         .hero-automotive {
+            min-height: auto; /* Altura automática para contenido */
             padding: var(--spacing-2xl) 0;
         }
         
+        /* Desactivar animaciones de fondo complejas */
+        .automotive-elements,
+        .particle-system {
+            display: none;
+        }
+
+        /* Desactivar animaciones de entrada */
+        .animate-in {
+            animation: none;
+            opacity: 1;
+            transform: none;
+        }
+
         .hero-content {
-            padding: var(--spacing-2xl);
-            margin: 0 var(--spacing-md);
+            /* Reducir blur para mejorar rendimiento */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
         
+        .hero-title {
+            font-size: clamp(2rem, 8vw + 1rem, 3rem);
+        }
+
         .hero-metrics {
-            grid-template-columns: 1fr;
-            gap: var(--spacing-md);
-        }
-        
-        .hero-actions {
             flex-direction: column;
-            align-items: center;
             gap: var(--spacing-md);
         }
-        
-        .hero-actions .btn {
+
+        .metric-card {
             width: 100%;
-            max-width: 320px;
-        }
-        
-        .catalogo-grid {
-            grid-template-columns: 1fr;
-            gap: var(--spacing-lg);
-        }
-
-        .metric-number {
-            font-size: 2.5rem;
-        }
-
-        .circuit {
-            display: none; /* Hide circuits on mobile for performance */
         }
     }
 
