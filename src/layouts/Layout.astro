@@ -144,14 +144,9 @@ const ajustes = await client.fetch(`*[_type == "ajustes"][0]`);
         --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
         --gradient-mesh: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
         
-        /* Compatibilidad con tokens antiguos */
-        --ease-automotive: var(--ease-elastic);
-        --motion-enter: var(--motion-medium);
-        --card-elevation: var(--shadow-lg);
-        --neon-glow: var(--glow-primary);
     }
-
-    /* ===== RESET Y BASE MEJORADOS ===== */
+    
+    /* ===== RESET Y ESTILOS BASE GLOBALES ===== */
     *, *::before, *::after {
         box-sizing: border-box;
         margin: 0;

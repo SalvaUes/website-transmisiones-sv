@@ -19,27 +19,31 @@ const FiltroTipoVehiculo: React.FC<Props> = ({ transmisiones, onFilterChange }) 
   const [selectedTipos, setSelectedTipos] = useState<string[]>([]);
   const [selectedMarcas, setSelectedMarcas] = useState<string[]>([]);
 
+  const filteredTransmisiones = useMemo(() => {
+    let filtered = transmisiones;
+
+    if (selectedTipos.length > 0) {
+      const marcasSeleccionadas = selectedTipos.flatMap(tipo => 
+        tiposVehiculos.find(t => t.id === tipo)?.marcas || []
+      );
+      filtered = filtered.filter(t => marcasSeleccionadas.includes(t.marca));
+    }
+
+    if (selectedMarcas.length > 0) {
+      filtered = filtered.filter(t => selectedMarcas.includes(t.marca));
+    }
+
+    return filtered;
+  }, [selectedTipos, selectedMarcas, transmisiones]);
+
   // Live filtering con debounce
   useEffect(() => {
     const timer = setTimeout(() => {
-      let filtered = transmisiones;
-
-      if (selectedTipos.length > 0) {
-        const marcasSeleccionadas = selectedTipos.flatMap(tipo => 
-          tiposVehiculos.find(t => t.id === tipo)?.marcas || []
-        );
-        filtered = filtered.filter(t => marcasSeleccionadas.includes(t.marca));
-      }
-
-      if (selectedMarcas.length > 0) {
-        filtered = filtered.filter(t => selectedMarcas.includes(t.marca));
-      }
-
-      onFilterChange(filtered);
+      onFilterChange(filteredTransmisiones);
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [selectedTipos, selectedMarcas, transmisiones, onFilterChange]);
+  }, [filteredTransmisiones, onFilterChange]);
 
   // Obtener marcas únicas de las transmisiones
   const marcasDisponibles = useMemo(() => {
@@ -68,22 +72,7 @@ const FiltroTipoVehiculo: React.FC<Props> = ({ transmisiones, onFilterChange }) 
     setSelectedMarcas([]);
   };
 
-  const getFilteredCount = () => {
-    let filtered = transmisiones;
-
-    if (selectedTipos.length > 0) {
-      const marcasSeleccionadas = selectedTipos.flatMap(tipo => 
-        tiposVehiculos.find(t => t.id === tipo)?.marcas || []
-      );
-      filtered = filtered.filter(t => marcasSeleccionadas.includes(t.marca));
-    }
-
-    if (selectedMarcas.length > 0) {
-      filtered = filtered.filter(t => selectedMarcas.includes(t.marca));
-    }
-
-    return filtered.length;
-  };
+  const filteredCount = filteredTransmisiones.length;
 
   return (
     <>
@@ -169,7 +158,7 @@ const FiltroTipoVehiculo: React.FC<Props> = ({ transmisiones, onFilterChange }) 
                   Limpiar filtros
                 </button>
                 <button className="apply-button" onClick={() => setIsOpen(false)}>
-                  Ver {getFilteredCount()} resultados
+                  Ver {filteredCount} resultados
                 </button>
               </div>
             </motion.div>

@@ -90,7 +90,7 @@ const transmisiones: Transmision[] = await client.fetch(query);
                         
                         if (shouldShow) {
                             card.style.display = 'block';
-                            card.style.animation = `cardSlideIn var(--motion-enter) var(--ease-automotive) ${index * 0.1}s both`;
+                            card.style.animation = `cardSlideIn var(--motion-medium) var(--ease-elastic) ${index * 0.1}s both`;
                             visibleCount++;
                         } else {
                             card.style.display = 'none';

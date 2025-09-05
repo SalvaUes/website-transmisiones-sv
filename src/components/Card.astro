@@ -7,20 +7,27 @@ interface Props {
     transmision: Transmision;
 }
 
-// Ensure Astro props are typed so TS can infer `precio` correctly
-const { transmision } = Astro.props as Props;
-const { marca, modelo, precio, condicion, slug } = transmision ?? ({} as Transmision);
+const { transmision } = Astro.props;
+const { marca, modelo, precio, condicion, slug, ano } = transmision ?? {} as Transmision;
 const foto = transmision?.foto;
 
-// Safe price formatter: accepts number or string, returns localized string
-const formatPrice = (p: unknown) => {
-    if (p === null || p === undefined) return '—';
-    if (typeof p === 'number') return p.toLocaleString();
-    // Try to extract digits from string like "1200" or "$1,200"
-    const sanitized = String(p).replace(/[^0-9.-]+/g, '');
-    const n = Number(sanitized);
-    if (!Number.isFinite(n)) return String(p);
-    return n.toLocaleString();
+// Optimized price formatter for consistency and clarity
+const formatPrice = (price: unknown): string => {
+    if (price === null || price === undefined) {
+        return '—';
+    }
+    // Sanitize input to extract only numbers and a decimal point
+    const numericPrice = Number(String(price).replace(/[^0-9.]+/g, ''));
+
+    if (!Number.isFinite(numericPrice)) {
+        return 'Consultar'; // Return a clear fallback for non-numeric values
+    }
+
+    // Use a specific locale for consistent formatting
+    return numericPrice.toLocaleString('es-SV', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+    });
 };
 ---
 
